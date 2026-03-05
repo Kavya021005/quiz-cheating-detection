@@ -19,7 +19,6 @@
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   }
-  .question p { font-weight: bold; margin-bottom: 10px; }
   label { display: block; margin: 6px 0; cursor: pointer; }
   input[type="text"], input[type="email"] {
     width: 100%;
@@ -34,214 +33,186 @@
     color: white;
     border: none;
     padding: 12px 30px;
-    font-size: 16px;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
     margin-top: 20px;
-    width: 100%;
   }
   input[type="submit"]:hover { background: #2980b9; }
   #status {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
     display: none;
-    text-align: center;
     font-weight: bold;
+    text-align: center;
   }
+  .success { background: #d4edda; color: #155724; }
+  .error { background: #f8d7da; color: #721c24; }
 </style>
-
-<script>
-  var submitted = false;
-  let startTime;
-  let tabSwitchCount = 0;
-  let ipAddress = "";
-
-  window.onload = function() {
-    startTime = Date.now();
-    getIP();
-  };
-
-  document.addEventListener("visibilitychange", function() {
-    if (document.hidden) {
-      tabSwitchCount++;
-    }
-  });
-
-  async function getIP() {
-    try {
-      const res = await fetch("https://api.ipify.org?format=json");
-      const data = await res.json();
-      ipAddress = data.ip;
-      document.getElementById("ip").value = ipAddress;
-    } catch(e) {
-      ipAddress = "unavailable";
-      document.getElementById("ip").value = ipAddress;
-    }
-  }
-
-  function calculateScore() {
-    let score = 0;
-    if (document.querySelector('input[name="q1"]:checked')?.value == "Stack") score++;
-    if (document.querySelector('input[name="q2"]:checked')?.value == "HTML") score++;
-    if (document.querySelector('input[name="q3"]:checked')?.value == "CPU") score++;
-    if (document.querySelector('input[name="q4"]:checked')?.value == "Divide and Conquer") score++;
-    if (document.querySelector('input[name="q5"]:checked')?.value == "Queue") score++;
-    if (document.querySelector('input[name="q6"]:checked')?.value == "Efficiency") score++;
-    if (document.querySelector('input[name="q7"]:checked')?.value == "Dijkstra") score++;
-    if (document.querySelector('input[name="q8"]:checked')?.value == "logn") score++;
-    if (document.querySelector('input[name="q9"]:checked')?.value == "Preorder") score++;
-    return score;
-  }
-
-  async function beforeSubmit(event) {
-    event.preventDefault(); // Stop form — we'll submit manually after filling fields
-
-    // Show loading status
-    const statusEl = document.getElementById("status");
-    statusEl.style.display = "block";
-    statusEl.style.background = "#fff3cd";
-    statusEl.style.color = "#856404";
-    statusEl.textContent = "Submitting quiz, please wait...";
-
-    // Fill score
-    const score = calculateScore();
-    document.getElementById("score").value = score;
-
-    // Fill time taken
-    let endTime = Date.now();
-    let timeTaken = Math.floor((endTime - startTime) / 1000);
-    document.getElementById("timeTaken").value = timeTaken;
-
-    // Fill tab switches
-    document.getElementById("tabs").value = tabSwitchCount;
-
-    // Ensure IP is set (fetch if not already)
-    if (!document.getElementById("ip").value) {
-      await getIP();
-    }
-
-    // Now submit the form
-    submitted = true;
-    event.target.submit();
-  }
-</script>
-
 </head>
 <body>
 
-<h2>💻 Computer Science Quiz</h2>
+<h2>Computer Science Quiz</h2>
 
-<iframe name="hidden_iframe" style="display:none;"></iframe>
+<div class="question">
+  Student Name:<br>
+  <input type="text" id="studentName" required><br><br>
+  Email:<br>
+  <input type="email" id="email" required>
+</div>
 
-<form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSeatUPJb5hXoDDfs_LKLwUmO2GLRcJnW94baEdN3YdKkIQ1pQ/formResponse"
-  method="POST"
-  target="hidden_iframe"
-  onsubmit="beforeSubmit(event);">
+<h3>Easy Questions</h3>
 
-  <div class="question">
-    <p>Student Name:</p>
-    <input type="text" name="entry.667892093" placeholder="Enter your full name" required>
-  </div>
+<div class="question">
+  <p>1. Which data structure uses LIFO?</p>
+  <label><input type="radio" name="q1" value="Stack"> Stack</label>
+  <label><input type="radio" name="q1" value="Queue"> Queue</label>
+  <label><input type="radio" name="q1" value="Tree"> Tree</label>
+</div>
 
-  <div class="question">
-    <p>Email:</p>
-    <input type="email" name="entry.1723146303" placeholder="Enter your email" required>
-  </div>
+<div class="question">
+  <p>2. Which language is used for web pages?</p>
+  <label><input type="radio" name="q2" value="HTML"> HTML</label>
+  <label><input type="radio" name="q2" value="Python"> Python</label>
+  <label><input type="radio" name="q2" value="Java"> Java</label>
+</div>
 
-  <h3>🟢 Easy Questions</h3>
+<div class="question">
+  <p>3. What does CPU stand for?</p>
+  <label><input type="radio" name="q3" value="CPU"> Central Processing Unit</label>
+  <label><input type="radio" name="q3" value="CPU2"> Computer Personal Unit</label>
+  <label><input type="radio" name="q3" value="CPU3"> Central Program Utility</label>
+</div>
 
-  <div class="question">
-    <p>1. Which data structure uses LIFO (Last In, First Out)?</p>
-    <label><input type="radio" name="q1" value="Stack"> Stack</label>
-    <label><input type="radio" name="q1" value="Queue"> Queue</label>
-    <label><input type="radio" name="q1" value="Tree"> Tree</label>
-  </div>
+<h3>Medium Questions</h3>
 
-  <div class="question">
-    <p>2. Which language is primarily used for web pages?</p>
-    <label><input type="radio" name="q2" value="HTML"> HTML</label>
-    <label><input type="radio" name="q2" value="Python"> Python</label>
-    <label><input type="radio" name="q2" value="Java"> Java</label>
-  </div>
+<div class="question">
+  <p>4. Which algorithm is used in binary search?</p>
+  <label><input type="radio" name="q4" value="Divide and Conquer"> Divide and Conquer</label>
+  <label><input type="radio" name="q4" value="Greedy"> Greedy</label>
+  <label><input type="radio" name="q4" value="DP"> Dynamic Programming</label>
+</div>
 
-  <div class="question">
-    <p>3. What does CPU stand for?</p>
-    <label><input type="radio" name="q3" value="CPU"> Central Processing Unit</label>
-    <label><input type="radio" name="q3" value="CPU2"> Computer Personal Unit</label>
-    <label><input type="radio" name="q3" value="CPU3"> Central Program Utility</label>
-  </div>
+<div class="question">
+  <p>5. Which data structure uses FIFO?</p>
+  <label><input type="radio" name="q5" value="Queue"> Queue</label>
+  <label><input type="radio" name="q5" value="Stack"> Stack</label>
+  <label><input type="radio" name="q5" value="Tree"> Tree</label>
+</div>
 
-  <h3>🟡 Medium Questions</h3>
+<div class="question">
+  <p>6. What is Big-O notation used for?</p>
+  <label><input type="radio" name="q6" value="Efficiency"> Algorithm efficiency</label>
+  <label><input type="radio" name="q6" value="Memory"> Memory storage</label>
+  <label><input type="radio" name="q6" value="CPU"> CPU speed</label>
+</div>
 
-  <div class="question">
-    <p>4. Which algorithm strategy is used in binary search?</p>
-    <label><input type="radio" name="q4" value="Divide and Conquer"> Divide and Conquer</label>
-    <label><input type="radio" name="q4" value="Greedy"> Greedy</label>
-    <label><input type="radio" name="q4" value="DP"> Dynamic Programming</label>
-  </div>
+<h3>Hard Questions</h3>
 
-  <div class="question">
-    <p>5. Which data structure uses FIFO (First In, First Out)?</p>
-    <label><input type="radio" name="q5" value="Queue"> Queue</label>
-    <label><input type="radio" name="q5" value="Stack"> Stack</label>
-    <label><input type="radio" name="q5" value="Tree"> Tree</label>
-  </div>
+<div class="question">
+  <p>7. Which algorithm finds shortest path?</p>
+  <label><input type="radio" name="q7" value="Dijkstra"> Dijkstra</label>
+  <label><input type="radio" name="q7" value="Bubble"> Bubble Sort</label>
+  <label><input type="radio" name="q7" value="Linear"> Linear Search</label>
+</div>
 
-  <div class="question">
-    <p>6. What is Big-O notation used for?</p>
-    <label><input type="radio" name="q6" value="Efficiency"> Algorithm efficiency</label>
-    <label><input type="radio" name="q6" value="Memory"> Memory storage</label>
-    <label><input type="radio" name="q6" value="CPU"> CPU speed</label>
-  </div>
+<div class="question">
+  <p>8. What is the time complexity of binary search?</p>
+  <label><input type="radio" name="q8" value="logn"> O(log n)</label>
+  <label><input type="radio" name="q8" value="n"> O(n)</label>
+  <label><input type="radio" name="q8" value="n2"> O(n²)</label>
+</div>
 
-  <h3>🔴 Hard Questions</h3>
+<div class="question">
+  <p>9. Which traversal visits root first?</p>
+  <label><input type="radio" name="q9" value="Preorder"> Preorder</label>
+  <label><input type="radio" name="q9" value="Inorder"> Inorder</label>
+  <label><input type="radio" name="q9" value="Postorder"> Postorder</label>
+</div>
 
-  <div class="question">
-    <p>7. Which algorithm finds the shortest path in a graph?</p>
-    <label><input type="radio" name="q7" value="Dijkstra"> Dijkstra's Algorithm</label>
-    <label><input type="radio" name="q7" value="Bubble"> Bubble Sort</label>
-    <label><input type="radio" name="q7" value="Linear"> Linear Search</label>
-  </div>
-
-  <div class="question">
-    <p>8. What is the time complexity of binary search?</p>
-    <label><input type="radio" name="q8" value="logn"> O(log n)</label>
-    <label><input type="radio" name="q8" value="n"> O(n)</label>
-    <label><input type="radio" name="q8" value="n2"> O(n²)</label>
-  </div>
-
-  <div class="question">
-    <p>9. Which tree traversal visits the root node first?</p>
-    <label><input type="radio" name="q9" value="Preorder"> Preorder</label>
-    <label><input type="radio" name="q9" value="Inorder"> Inorder</label>
-    <label><input type="radio" name="q9" value="Postorder"> Postorder</label>
-  </div>
-
-  <!-- ✅ Hidden Fields — DO NOT REMOVE -->
-  <input type="hidden" name="entry.1062474563" value="QZ101">
-  <input type="hidden" name="entry.244608922"  id="score">
-  <input type="hidden" name="entry.1867340815" id="timeTaken">
-  <input type="hidden" name="entry.364210402"  id="ip">
-  <input type="hidden" name="entry.444531389"  id="tabs">
-
-  <input type="submit" value="Submit Quiz ✅">
-  <div id="status"></div>
-
-</form>
+<input type="submit" value="Submit Quiz" onclick="submitQuiz()">
+<div id="status"></div>
 
 <script>
-  document.querySelector("iframe").onload = function() {
-    if (submitted) {
-      const statusEl = document.getElementById("status");
-      statusEl.style.display = "block";
-      statusEl.style.background = "#d4edda";
-      statusEl.style.color = "#155724";
-      statusEl.textContent = "✅ Quiz submitted successfully! Thank you.";
-      setTimeout(() => window.location.reload(), 3000);
-    }
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx_hggtfrduz542Ape7uUYACSrY00-8QgHfD1xc-_otGW8u1Pun99zmWkM3Q9rRr06FmQ/exec";
+
+let startTime = Date.now();
+let tabSwitchCount = 0;
+let ipAddress = "";
+
+// Track tab switches
+document.addEventListener("visibilitychange", function() {
+  if (document.hidden) tabSwitchCount++;
+});
+
+// Get IP on load
+fetch("https://api.ipify.org?format=json")
+  .then(r => r.json())
+  .then(data => { ipAddress = data.ip; })
+  .catch(() => { ipAddress = "Unknown"; });
+
+function calculateScore() {
+  let score = 0;
+  if(document.querySelector('input[name="q1"]:checked')?.value == "Stack") score++;
+  if(document.querySelector('input[name="q2"]:checked')?.value == "HTML") score++;
+  if(document.querySelector('input[name="q3"]:checked')?.value == "CPU") score++;
+  if(document.querySelector('input[name="q4"]:checked')?.value == "Divide and Conquer") score++;
+  if(document.querySelector('input[name="q5"]:checked')?.value == "Queue") score++;
+  if(document.querySelector('input[name="q6"]:checked')?.value == "Efficiency") score++;
+  if(document.querySelector('input[name="q7"]:checked')?.value == "Dijkstra") score++;
+  if(document.querySelector('input[name="q8"]:checked')?.value == "logn") score++;
+  if(document.querySelector('input[name="q9"]:checked')?.value == "Preorder") score++;
+  return score;
+}
+
+async function submitQuiz() {
+  const studentName = document.getElementById("studentName").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!studentName || !email) {
+    alert("Please enter your name and email!");
+    return;
+  }
+
+  const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+  const score = calculateScore();
+
+  const statusDiv = document.getElementById("status");
+  statusDiv.style.display = "block";
+  statusDiv.className = "";
+  statusDiv.innerText = "Submitting your quiz... please wait ⏳";
+
+  const payload = {
+    studentName: studentName,
+    email: email,
+    quizId: "QZ101",
+    score: score,
+    timeTaken: timeTaken,
+    ipAddress: ipAddress || "Unknown",
+    tabSwitches: tabSwitchCount
   };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    statusDiv.className = "success";
+    statusDiv.innerText = "✅ Quiz submitted successfully! Thank you, " + studentName + "!";
+
+    // Disable form
+    document.querySelector("input[type='submit']").disabled = true;
+    document.querySelectorAll("input").forEach(i => i.disabled = true);
+
+  } catch(err) {
+    statusDiv.className = "error";
+    statusDiv.innerText = "❌ Submission failed. Please try again.";
+  }
+}
 </script>
 
 </body>
