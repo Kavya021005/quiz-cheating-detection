@@ -8,7 +8,7 @@
 let startTime;
 let tabSwitchCount = 0;
 
-// record start time
+// start timer
 window.onload = function() {
     startTime = Date.now();
     getIP();
@@ -36,6 +36,7 @@ function beforeSubmit(){
 
     document.getElementById("timeTaken").value = timeTaken;
     document.getElementById("tabs").value = tabSwitchCount;
+
 }
 
 </script>
@@ -46,70 +47,70 @@ function beforeSubmit(){
 
 <h2>Computer Science Quiz</h2>
 
-<form onsubmit="beforeSubmit()">
+<form action="YOUR_GOOGLE_FORM_URL_HERE" method="POST" onsubmit="beforeSubmit()">
 
 Student Name:<br>
-<input type="text" required><br><br>
+<input type="text" name="entry.111111" required><br><br>
 
 Email:<br>
-<input type="email" required><br><br>
+<input type="email" name="entry.222222" required><br><br>
 
 <h3>Easy Questions</h3>
 
 1. Which data structure uses LIFO?<br>
-<input type="radio" name="q1"> Stack<br>
-<input type="radio" name="q1"> Queue<br>
-<input type="radio" name="q1"> Tree<br><br>
+<input type="radio" name="q1" value="Stack"> Stack<br>
+<input type="radio" name="q1" value="Queue"> Queue<br>
+<input type="radio" name="q1" value="Tree"> Tree<br><br>
 
 2. Which language is used for web pages?<br>
-<input type="radio" name="q2"> HTML<br>
-<input type="radio" name="q2"> Python<br>
-<input type="radio" name="q2"> Java<br><br>
+<input type="radio" name="q2" value="HTML"> HTML<br>
+<input type="radio" name="q2" value="Python"> Python<br>
+<input type="radio" name="q2" value="Java"> Java<br><br>
 
 3. What does CPU stand for?<br>
-<input type="radio" name="q3"> Central Processing Unit<br>
-<input type="radio" name="q3"> Computer Personal Unit<br>
-<input type="radio" name="q3"> Central Program Utility<br><br>
+<input type="radio" name="q3" value="CPU"> Central Processing Unit<br>
+<input type="radio" name="q3" value="CPU2"> Computer Personal Unit<br>
+<input type="radio" name="q3" value="CPU3"> Central Program Utility<br><br>
 
 <h3>Medium Questions</h3>
 
 4. Which algorithm is used in binary search?<br>
-<input type="radio" name="q4"> Divide and Conquer<br>
-<input type="radio" name="q4"> Greedy<br>
-<input type="radio" name="q4"> Dynamic Programming<br><br>
+<input type="radio" name="q4" value="Divide and Conquer"> Divide and Conquer<br>
+<input type="radio" name="q4" value="Greedy"> Greedy<br>
+<input type="radio" name="q4" value="DP"> Dynamic Programming<br><br>
 
 5. Which data structure uses FIFO?<br>
-<input type="radio" name="q5"> Queue<br>
-<input type="radio" name="q5"> Stack<br>
-<input type="radio" name="q5"> Tree<br><br>
+<input type="radio" name="q5" value="Queue"> Queue<br>
+<input type="radio" name="q5" value="Stack"> Stack<br>
+<input type="radio" name="q5" value="Tree"> Tree<br><br>
 
 6. What is Big-O notation used for?<br>
-<input type="radio" name="q6"> Algorithm efficiency<br>
-<input type="radio" name="q6"> Memory storage<br>
-<input type="radio" name="q6"> CPU speed<br><br>
+<input type="radio" name="q6" value="Efficiency"> Algorithm efficiency<br>
+<input type="radio" name="q6" value="Memory"> Memory storage<br>
+<input type="radio" name="q6" value="CPU"> CPU speed<br><br>
 
 <h3>Hard Questions</h3>
 
 7. Which algorithm finds shortest path?<br>
-<input type="radio" name="q7"> Dijkstra<br>
-<input type="radio" name="q7"> Bubble Sort<br>
-<input type="radio" name="q7"> Linear Search<br><br>
+<input type="radio" name="q7" value="Dijkstra"> Dijkstra<br>
+<input type="radio" name="q7" value="Bubble"> Bubble Sort<br>
+<input type="radio" name="q7" value="Linear"> Linear Search<br><br>
 
 8. What is the time complexity of binary search?<br>
-<input type="radio" name="q8"> O(log n)<br>
-<input type="radio" name="q8"> O(n)<br>
-<input type="radio" name="q8"> O(n²)<br><br>
+<input type="radio" name="q8" value="logn"> O(log n)<br>
+<input type="radio" name="q8" value="n"> O(n)<br>
+<input type="radio" name="q8" value="n2"> O(n²)<br><br>
 
 9. Which traversal visits root first?<br>
-<input type="radio" name="q9"> Preorder<br>
-<input type="radio" name="q9"> Inorder<br>
-<input type="radio" name="q9"> Postorder<br><br>
+<input type="radio" name="q9" value="Preorder"> Preorder<br>
+<input type="radio" name="q9" value="Inorder"> Inorder<br>
+<input type="radio" name="q9" value="Postorder"> Postorder<br><br>
 
 <!-- hidden tracking fields -->
 
-<input type="hidden" id="ip">
-<input type="hidden" id="tabs">
-<input type="hidden" id="timeTaken">
+<input type="hidden" name="entry.333333" id="ip">
+<input type="hidden" name="entry.444444" id="tabs">
+<input type="hidden" name="entry.555555" id="timeTaken">
 
 <br><br>
 
