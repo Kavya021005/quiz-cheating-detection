@@ -4,6 +4,7 @@
 <title>Computer Science Quiz</title>
 
 <script>
+var submitted = false;
 
 let startTime;
 let tabSwitchCount = 0;
@@ -63,8 +64,12 @@ function beforeSubmit(){
 
 <h2>Computer Science Quiz</h2>
 
-<form action="https://docs.google.com/forms/d/e/1FAIpQLSeatUPJb5hXoDDfs_LKLwUmO2GLRcJnW94baEdN3YdKkIQ1pQ/formResponse" method="POST" onsubmit="beforeSubmit()">
 
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSeatUPJb5hXoDDfs_LKLwUmO2GLRcJnW94baEdN3YdKkIQ1pQ/formResponse"
+method="POST"
+target="hidden_iframe"
+onsubmit="beforeSubmit(); submitted=true;">
 Student Name:<br>
 <input type="text" name="entry.667892093" required><br><br>
 
@@ -140,6 +145,14 @@ Email:<br>
 <input type="submit" value="Submit Quiz">
 
 </form>
+<script>
+document.querySelector("iframe").onload = function(){
+    if(submitted){
+        alert("Quiz submitted successfully!");
+        window.location.reload();
+    }
+}
+</script>
 
 </body>
 </html>
