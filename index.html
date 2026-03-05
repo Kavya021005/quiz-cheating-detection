@@ -8,28 +8,44 @@
 let startTime;
 let tabSwitchCount = 0;
 
-// start timer
 window.onload = function() {
     startTime = Date.now();
     getIP();
 }
 
-// detect tab switching
 document.addEventListener("visibilitychange", function() {
     if (document.hidden) {
         tabSwitchCount++;
     }
 });
 
-// capture IP automatically
 async function getIP(){
     const res = await fetch("https://api.ipify.org?format=json");
     const data = await res.json();
     document.getElementById("ip").value = data.ip;
 }
 
-// calculate time when submitting
+function calculateScore(){
+
+let score = 0;
+
+if(document.querySelector('input[name="q1"]:checked')?.value=="Stack") score++;
+if(document.querySelector('input[name="q2"]:checked')?.value=="HTML") score++;
+if(document.querySelector('input[name="q3"]:checked')?.value=="CPU") score++;
+if(document.querySelector('input[name="q4"]:checked')?.value=="Divide and Conquer") score++;
+if(document.querySelector('input[name="q5"]:checked')?.value=="Queue") score++;
+if(document.querySelector('input[name="q6"]:checked')?.value=="Efficiency") score++;
+if(document.querySelector('input[name="q7"]:checked')?.value=="Dijkstra") score++;
+if(document.querySelector('input[name="q8"]:checked')?.value=="logn") score++;
+if(document.querySelector('input[name="q9"]:checked')?.value=="Preorder") score++;
+
+document.getElementById("score").value = score;
+
+}
+
 function beforeSubmit(){
+
+    calculateScore();
 
     let endTime = Date.now();
     let timeTaken = Math.floor((endTime - startTime)/1000);
@@ -47,13 +63,13 @@ function beforeSubmit(){
 
 <h2>Computer Science Quiz</h2>
 
-<form action="YOUR_GOOGLE_FORM_URL_HERE" method="POST" onsubmit="beforeSubmit()">
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSeatUPJb5hXoDDfs_LKLwUmO2GLRcJnW94baEdN3YdKkIQ1pQ/formResponse" method="POST" onsubmit="beforeSubmit()">
 
 Student Name:<br>
-<input type="text" name="entry.111111" required><br><br>
+<input type="text" name="entry.667892093" required><br><br>
 
 Email:<br>
-<input type="email" name="entry.222222" required><br><br>
+<input type="email" name="entry.1723146303" required><br><br>
 
 <h3>Easy Questions</h3>
 
@@ -106,11 +122,18 @@ Email:<br>
 <input type="radio" name="q9" value="Inorder"> Inorder<br>
 <input type="radio" name="q9" value="Postorder"> Postorder<br><br>
 
-<!-- hidden tracking fields -->
 
-<input type="hidden" name="entry.333333" id="ip">
-<input type="hidden" name="entry.444444" id="tabs">
-<input type="hidden" name="entry.555555" id="timeTaken">
+<!-- Hidden Fields -->
+
+<input type="hidden" name="entry.1062474563" value="QZ101">
+
+<input type="hidden" name="entry.244608922" id="score">
+
+<input type="hidden" name="entry.1867340815" id="timeTaken">
+
+<input type="hidden" name="entry.364210402" id="ip">
+
+<input type="hidden" name="entry.444531389" id="tabs">
 
 <br><br>
 
