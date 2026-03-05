@@ -4,25 +4,40 @@
 <title>Computer Science Quiz</title>
 
 <script>
+
+let startTime;
 let tabSwitchCount = 0;
 
+// record start time
+window.onload = function() {
+    startTime = Date.now();
+    getIP();
+}
+
+// detect tab switching
 document.addEventListener("visibilitychange", function() {
     if (document.hidden) {
         tabSwitchCount++;
     }
 });
 
-async function getIP() {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const data = await response.json();
+// capture IP automatically
+async function getIP(){
+    const res = await fetch("https://api.ipify.org?format=json");
+    const data = await res.json();
     document.getElementById("ip").value = data.ip;
 }
 
+// calculate time when submitting
 function beforeSubmit(){
+
+    let endTime = Date.now();
+    let timeTaken = Math.floor((endTime - startTime)/1000);
+
+    document.getElementById("timeTaken").value = timeTaken;
     document.getElementById("tabs").value = tabSwitchCount;
 }
 
-window.onload = getIP;
 </script>
 
 </head>
@@ -31,24 +46,72 @@ window.onload = getIP;
 
 <h2>Computer Science Quiz</h2>
 
-<form>
+<form onsubmit="beforeSubmit()">
 
 Student Name:<br>
-<input type="text"><br><br>
+<input type="text" required><br><br>
 
 Email:<br>
-<input type="email"><br><br>
+<input type="email" required><br><br>
 
-Question: Which data structure uses LIFO?<br>
+<h3>Easy Questions</h3>
+
+1. Which data structure uses LIFO?<br>
 <input type="radio" name="q1"> Stack<br>
 <input type="radio" name="q1"> Queue<br>
 <input type="radio" name="q1"> Tree<br><br>
 
-Time Taken (minutes):<br>
-<input type="number"><br><br>
+2. Which language is used for web pages?<br>
+<input type="radio" name="q2"> HTML<br>
+<input type="radio" name="q2"> Python<br>
+<input type="radio" name="q2"> Java<br><br>
+
+3. What does CPU stand for?<br>
+<input type="radio" name="q3"> Central Processing Unit<br>
+<input type="radio" name="q3"> Computer Personal Unit<br>
+<input type="radio" name="q3"> Central Program Utility<br><br>
+
+<h3>Medium Questions</h3>
+
+4. Which algorithm is used in binary search?<br>
+<input type="radio" name="q4"> Divide and Conquer<br>
+<input type="radio" name="q4"> Greedy<br>
+<input type="radio" name="q4"> Dynamic Programming<br><br>
+
+5. Which data structure uses FIFO?<br>
+<input type="radio" name="q5"> Queue<br>
+<input type="radio" name="q5"> Stack<br>
+<input type="radio" name="q5"> Tree<br><br>
+
+6. What is Big-O notation used for?<br>
+<input type="radio" name="q6"> Algorithm efficiency<br>
+<input type="radio" name="q6"> Memory storage<br>
+<input type="radio" name="q6"> CPU speed<br><br>
+
+<h3>Hard Questions</h3>
+
+7. Which algorithm finds shortest path?<br>
+<input type="radio" name="q7"> Dijkstra<br>
+<input type="radio" name="q7"> Bubble Sort<br>
+<input type="radio" name="q7"> Linear Search<br><br>
+
+8. What is the time complexity of binary search?<br>
+<input type="radio" name="q8"> O(log n)<br>
+<input type="radio" name="q8"> O(n)<br>
+<input type="radio" name="q8"> O(n²)<br><br>
+
+9. Which traversal visits root first?<br>
+<input type="radio" name="q9"> Preorder<br>
+<input type="radio" name="q9"> Inorder<br>
+<input type="radio" name="q9"> Postorder<br><br>
+
+<!-- hidden tracking fields -->
 
 <input type="hidden" id="ip">
 <input type="hidden" id="tabs">
+<input type="hidden" id="timeTaken">
+
+<br><br>
 
 <input type="submit" value="Submit Quiz">
 
